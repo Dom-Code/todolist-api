@@ -46,18 +46,17 @@ router.use(bodyParser.json());
 
 // Rules for our API
 
-// router.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
 
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
 
-//     if (req.method == 'OPTIONS') {
-//         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
-//         return res.status(200).json();
-//     }
-//     next();
-// });
+    if (req.method == 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
+        return res.status(200).json();
+    }
+    next();
+});
 
 // Routes
 router.use('/api', userRoutes);
