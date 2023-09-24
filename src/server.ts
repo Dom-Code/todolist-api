@@ -11,7 +11,7 @@ import cors from 'cors';
 const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io'];
 
 const options: cors.CorsOptions = {
-    origin: allowedList
+    origin: 'http://127.0.0.1:5173'
 };
 
 const NAMESPACE = 'Server';
@@ -46,17 +46,17 @@ router.use(bodyParser.json());
 
 // Rules for our API
 
-router.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
+// router.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
 
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
 
-    if (req.method == 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
-        return res.status(200).json();
-    }
-    next();
-});
+//     if (req.method == 'OPTIONS') {
+//         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
+//         return res.status(200).json();
+//     }
+//     next();
+// });
 
 // Routes
 router.use('/api', userRoutes);
