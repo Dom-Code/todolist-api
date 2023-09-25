@@ -11,9 +11,9 @@ import cors from 'cors';
 const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io'];
 
 const options: cors.CorsOptions = {
-    origin: 'https://dom-code.github.io/todolist-react-app',
+    origin: allowedList,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization']
+    allowedHeaders: ['Origin', 'X-Requested-with', 'Content-Type', 'Accept', 'Authorization']
 };
 
 const NAMESPACE = 'Server';
