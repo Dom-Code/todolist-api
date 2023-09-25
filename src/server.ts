@@ -1,4 +1,4 @@
-import http from 'http';
+import http, { METHODS } from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import logging from './config/logging';
@@ -11,7 +11,9 @@ import cors from 'cors';
 const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io'];
 
 const options: cors.CorsOptions = {
-    origin: 'http://127.0.0.1:5173'
+    origin: 'https://dom-code.github.io/todolist-react-app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization']
 };
 
 const NAMESPACE = 'Server';
@@ -47,8 +49,7 @@ router.use(bodyParser.json());
 // Rules for our API
 
 // router.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:5173');
-
+//     res.header('Access-Control-Allow-Origin', '*');
 //     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
 
 //     if (req.method == 'OPTIONS') {
