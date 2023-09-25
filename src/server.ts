@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import CorsOps from './middleware/cors';
 import cors from 'cors';
 
-const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io'];
+const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io', 'https://dom-code.github.io/todolist-react-app'];
 
 const options: cors.CorsOptions = {
     origin: allowedList,
@@ -60,7 +60,7 @@ router.use(bodyParser.json());
 // });
 
 // Routes
-router.use('/api', userRoutes);
+router.use('/api/', userRoutes);
 
 // Error Handling
 
