@@ -1,4 +1,4 @@
-import http, { METHODS } from 'http';
+import http from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import logging from './config/logging';
@@ -8,12 +8,12 @@ import mongoose from 'mongoose';
 import CorsOps from './middleware/cors';
 import cors from 'cors';
 
-const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io', 'https://dom-code.github.io/todolist-react-app'];
+const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io'];
 
 const options: cors.CorsOptions = {
-    origin: allowedList,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Origin', 'X-Requested-with', 'Content-Type', 'Accept', 'Authorization']
+    origin: '*'
+    // credentials: true,
+    // optionsSuccessStatus: 200
 };
 
 const NAMESPACE = 'Server';
@@ -48,19 +48,19 @@ router.use(bodyParser.json());
 
 // Rules for our API
 
-// router.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+router.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
 
-//     if (req.method == 'OPTIONS') {
-//         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
-//         return res.status(200).json();
-//     }
-//     next();
-// });
+    if (req.method == 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
+        return res.status(200).json();
+    }
+    next();
+});
 
 // Routes
-router.use('/api/', userRoutes);
+router.use('/api', userRoutes);
 
 // Error Handling
 
