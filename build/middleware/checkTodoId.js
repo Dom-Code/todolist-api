@@ -4,11 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const logging_1 = __importDefault(require("../config/logging"));
-const NAMESPACE = 'Sample Controller';
-const sampleCheck = (req, res, next) => {
-    logging_1.default.info(NAMESPACE, 'Sample route check');
-    return res.status(200).json({
-        message: 'This is a test'
-    });
+const NAMESPACE = 'DB';
+const checkTodoId = (req, res, next) => {
+    logging_1.default.info(NAMESPACE, 'Checking if todo exists');
+    console.log(req.body);
 };
-exports.default = { sampleCheck };
+exports.default = checkTodoId;

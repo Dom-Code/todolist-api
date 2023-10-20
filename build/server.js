@@ -8,9 +8,27 @@ const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const logging_1 = __importDefault(require("./config/logging"));
 const config_1 = __importDefault(require("./config/config"));
-const sample_1 = __importDefault(require("./routes/sample"));
+const user_1 = __importDefault(require("./routes/user"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const cors_1 = __importDefault(require("cors"));
+const allowedList = ['http://localhost:3000', 'http://127.0.0.1:5173', 'https://dom-code.github.io'];
+const options = {
+    origin: '*'
+    // credentials: true,
+    // optionsSuccessStatus: 200
+};
 const NAMESPACE = 'Server';
 const router = (0, express_1.default)();
+// Connect to Mongo
+mongoose_1.default
+    .connect(config_1.default.mongo.url, config_1.default.mongo.options)
+    .then((result) => {
+    logging_1.default.info(NAMESPACE, 'Connected to mongoDB!');
+})
+    .catch((err) => {
+    logging_1.default.error(NAMESPACE, err.message, err);
+});
+router.use((0, cors_1.default)(options));
 router.use((req, res, next) => {
     logging_1.default.info(NAMESPACE, `Method: [${req.method}], URL: [$Preq.url], IP: [${req.socket.remoteAddress}]`);
     res.on(`finish`, () => {
@@ -25,15 +43,15 @@ router.use(body_parser_1.default.json());
 // Rules for our API
 router.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-with, Content-Type, Accept, Authorization,  application/json');
     if (req.method == 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT');
+        res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST PUT OPTIONS');
         return res.status(200).json();
     }
     next();
 });
 // Routes
-router.use('/', sample_1.default);
+router.use('/api', user_1.default);
 // Error Handling
 router.use((req, res, next) => {
     const error = new Error('Not Found');

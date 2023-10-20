@@ -11,5 +11,3 @@ const generateAccessToken = (user: any) => {
 };
 
 export default generateAccessToken;
-
-
