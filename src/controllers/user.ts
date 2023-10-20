@@ -14,6 +14,14 @@ import generateTokens from '../utils/generateTokens';
 
 const NAMESPACE = 'User Controller';
 
+const home = (req: Request, res: Response, next: NextFunction) => {
+    // logging.info(NAMESPACE, 'Token validated');
+
+    return res.status(200).json({
+        message: 'Home Page Test'
+    });
+};
+
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Token validated');
 
@@ -21,6 +29,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
         message: 'User is authorized'
     });
 };
+
 const validateTest = (req: Request, res: Response, next: NextFunction) => {
     logging.info(NAMESPACE, 'Token validated');
 
@@ -450,6 +459,7 @@ const deleteRefreshToken = (req: Request, res: Response, next: NextFunction) => 
 };
 
 export default {
+    home,
     validateToken,
     validateTest,
     register,

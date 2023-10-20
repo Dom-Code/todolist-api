@@ -5,6 +5,7 @@ import { LoginSchema, RegisterSchema, ValidateJoi } from '../middleware/joi';
 
 const router = express.Router();
 
+router.get('/', controller.home);
 router.get('/validate', extractJWT, controller.validateToken);
 router.get('/validateTest', controller.validateTest);
 
