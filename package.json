@@ -8,7 +8,8 @@
         "npm": "8.19.2"
     },
     "scripts": {
-        "start": "nodemon src/server.ts",
+        "start": "node src/server.ts",
+        "dev": "nodemon src/server.ts",
         "postinstall": "tsc"
     },
     "author": "",
